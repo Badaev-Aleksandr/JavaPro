@@ -1,4 +1,4 @@
-package consultations;
+package de.ait.consultations;
 
 public class Weather {
     private String city;

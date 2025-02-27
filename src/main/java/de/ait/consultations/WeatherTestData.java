@@ -1,4 +1,4 @@
-package consultations;
+package de.ait.consultations;
 
 import java.util.Arrays;
 import java.util.List;

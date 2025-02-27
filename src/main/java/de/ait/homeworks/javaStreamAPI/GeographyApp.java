@@ -1,4 +1,4 @@
-package homeworks.JavaStreamAPI;
+package de.ait.homeworks.javaStreamAPI;
 
 import java.util.Arrays;
 import java.util.List;
@@ -80,56 +80,55 @@ public class GeographyApp {
     }
     static private List<String> getCountriesByPrefix(List<String> countries, String prefix) {
         return countries.stream()
-                .filter(country -> country.toLowerCase().startsWith(prefix.toLowerCase()))
+                .filter(country -> country.trim().toLowerCase().startsWith(prefix.trim().toLowerCase()))
                 .collect(Collectors.toList());
     }
 
     static private List<String> filterCitiesByLength(List<String> cities, int length) {
     return cities.stream()
-            .filter(city -> city.length() > length)
+            .filter(city -> city.trim().length() > length)
             .collect(Collectors.toList());
     }
 
     static private List<String> filterRiversByEvenLength(List<String> rivers) {
         return rivers.stream()
-                .filter(river -> river.length() % 2 == 0)
+                .filter(river -> river.trim().length() % 2 == 0)
                 .collect(Collectors.toList());
     }
 
     static private List<String> filterContinentsByLength(List<String> continents, int length) {
         return continents.stream()
-                .filter(continent -> continent.length() < length)
+                .filter(continent -> continent.trim().length() < length)
                 .collect(Collectors.toList());
     }
 
     static private List<String> filterCountriesByLength(List<String> continents, int length) {
         return continents.stream()
-                .filter(country -> country.length() == length)
+                .filter(country -> country.trim().length() == length)
                 .collect(Collectors.toList());
     }
 
     static private List<String> searchCountriesWithPrefix(List<String> countries, String prefix) {
         return countries.stream()
-                .filter(country -> country.toLowerCase().contains(prefix.toLowerCase()))
+                .filter(country -> country.trim().toLowerCase().contains(prefix.trim().toLowerCase()))
                 .collect(Collectors.toList());
     }
 
     static private List<String> filterCitiesByLastPrefix(List<String> cities, String prefix) {
         return cities.stream()
-                .filter(city -> city.toLowerCase().endsWith(prefix.toLowerCase()))
+                .filter(city -> city.trim().toLowerCase().endsWith(prefix.trim().toLowerCase()))
                 .collect(Collectors.toList());
     }
 
     static private List<String> filterRiversByLength(List<String> rivers, int length) {
         return rivers.stream()
-                .filter(river -> river.length() > length)
+                .filter(river -> river.trim().length() > length)
                 .collect(Collectors.toList());
     }
 
     static private List<String> filterContinentsByFirstPrefix(List<String> continents, String prefix) {
        return continents.stream()
-               .filter(continent -> continent.toLowerCase().startsWith(prefix.toLowerCase()))
+               .filter(continent -> continent.trim().toLowerCase().startsWith(prefix.trim().toLowerCase()))
                .collect(Collectors.toList());
     }
 }
-

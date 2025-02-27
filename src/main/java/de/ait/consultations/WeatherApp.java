@@ -1,4 +1,4 @@
-package consultations;
+package de.ait.consultations;
 
 import java.util.List;
 import java.util.stream.Collectors;
