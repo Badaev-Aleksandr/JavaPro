@@ -76,12 +76,10 @@ public class HWParameterizedTestTest {
             "Hello,5",
             "Hello World,11",
             "'', 0",
-            "null, -1"
+            ",-1",
+            "'10', 2"
     })
     void testGetLength(String str, long expected) {
-        if (str.equals("null")) {
-            str = null;
-        }
         assertEquals(expected, hwParameterizedTest.getLength(str));
     }
 
@@ -113,14 +111,10 @@ public class HWParameterizedTestTest {
     @ParameterizedTest
     @DisplayName("Проверка на null ")
     @CsvSource({
-            "Hello Alex, null",
-            "null, Allex",
+            "Hello Alex,",
+            ", Allex",
     })
     void testContainsWordByNull(String str, String word) {
-        if (str.equals("null") || word.equals("null")) {
-            word = null;
-            str = null;
-        }
         assertFalse(hwParameterizedTest.containsWord(str, word));
     }
 }

@@ -17,18 +17,17 @@ public class HWParameterizedTest {
         return a / b;
     }
 
-    public long getLength(String str){
+    public long getLength(String str) {
         if (str == null) {
             return -1;
         }
         return str.length();
     }
 
-    public boolean containsWord(String text, String word){
+    public boolean containsWord(String text, String word) {
         if (text == null || word == null) {
             return false;
         }
         return text.contains(word);
     }
-
 }
