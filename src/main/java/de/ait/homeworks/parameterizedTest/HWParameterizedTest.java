@@ -1,5 +1,6 @@
 package de.ait.homeworks.parameterizedTest;
 
+
 public class HWParameterizedTest {
 
     public int add(int a, int b) {
@@ -26,6 +27,9 @@ public class HWParameterizedTest {
 
     public boolean containsWord(String text, String word) {
         if (text == null || word == null) {
+            return false;
+        }
+        if(text.isEmpty() || word.isEmpty()) {
             return false;
         }
         return text.contains(word);

@@ -89,8 +89,7 @@ public class HWParameterizedTestTest {
             "Hello Alex, lo",
             "Hello Alex, A",
             "Hello Alex, lex",
-            "Hello Alex, llo ",
-            "'', ''"
+            "Hello Alex, llo "
     })
     void testContainsWordPositive(String str, String word) {
         assertTrue(hwParameterizedTest.containsWord(str, word));
@@ -102,7 +101,8 @@ public class HWParameterizedTestTest {
             "Hello Alex, losa",
             "Hello Alex, Allex",
             "Hello Alex, Alexa",
-            "Hello Alex, llo Alix "
+            "Hello Alex,''",
+            "'', Book"
     })
     void testContainsWordNegative(String str, String word) {
         assertFalse(hwParameterizedTest.containsWord(str, word));
