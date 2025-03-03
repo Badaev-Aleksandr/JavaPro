@@ -1,5 +1,7 @@
 package de.ait.javalessons.model;
 
+import lombok.extern.slf4j.Slf4j;
+
 public class Car {
 
     private final String id;
