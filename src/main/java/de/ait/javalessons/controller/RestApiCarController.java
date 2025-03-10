@@ -1,12 +1,12 @@
 package de.ait.javalessons.controller;
 
 import de.ait.javalessons.model.Car;
+import de.ait.repositories.CarRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,12 +15,14 @@ import java.util.Optional;
 @RequestMapping("/cars") // Базовый путь для всех методов в этом контроллере
 public class RestApiCarController {
 
-    // Список для хранения автомобилей
-    private List<Car> carList = new ArrayList<>();
+    private final CarRepository carRepository;
 
     // Конструктор класса, инициализирующий список автомобилей
-    public RestApiCarController() {
-        carList.addAll(
+    public RestApiCarController(CarRepository carRepository) {
+
+        this.carRepository = carRepository;
+
+        this.carRepository.saveAll(
                 List.of(
                         new Car("1", "BMW M1"),
                         new Car("2", "Audi A8"),
@@ -37,7 +39,7 @@ public class RestApiCarController {
      */
     @GetMapping
     Iterable<Car> getCars() {
-        return carList;
+        return carRepository.findAll();
     }
 
     /**
@@ -49,12 +51,13 @@ public class RestApiCarController {
      */
     @GetMapping("/{id}")
     Optional<Car> getCarById(@PathVariable String id) {
-        for (Car car : carList) {
-            if (car.getId().equals(id)) {
-                return Optional.of(car);
-            }
-        }
-        return Optional.empty();
+       Optional<Car> carInDataBase =  carRepository.findById(id);
+       if (carInDataBase.isPresent()) {
+           log.info("Found car with id {}", id);
+           return carInDataBase;
+       }
+           log.info("Car with id {} not found", id);
+           return Optional.empty();
     }
 
     /**
@@ -66,8 +69,8 @@ public class RestApiCarController {
      */
     @PostMapping
     Car postCar(@RequestBody Car car) {
-        carList.add(car);
-        return car;
+      Car saveResult =  carRepository.save(car);
+        return saveResult;
     }
 
     /**
@@ -81,17 +84,15 @@ public class RestApiCarController {
      */
     @PutMapping("/{id}")
     ResponseEntity<Car> putCar(@PathVariable String id, @RequestBody Car car) {
-        int index = -1;
-        for (Car carToFind : carList) {
-            if (carToFind.getId().equals(id)) {
-                index = carList.indexOf(carToFind);
-                carList.set(index, car);
-            }
+        if (carRepository.existsById(id)) {
+            Car carToUpdate = carRepository.findById(id).get();
+            carToUpdate.setName(car.getName());
+            carToUpdate.setId(id);
+            Car saveCar = carRepository.save(carToUpdate);
+            return new ResponseEntity<>(saveCar, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(postCar(car), HttpStatus.CREATED);
         }
-
-        return (index == -1) ?
-                new ResponseEntity<>(postCar(car), HttpStatus.CREATED) :
-                new ResponseEntity<>(car, HttpStatus.OK);
     }
 
     /**
@@ -102,6 +103,6 @@ public class RestApiCarController {
      */
     @DeleteMapping("/{id}")
     void deleteCar(@PathVariable String id) {
-        carList.removeIf(car -> car.getId().equals(id));
+    carRepository.deleteById(id);
     }
 }
