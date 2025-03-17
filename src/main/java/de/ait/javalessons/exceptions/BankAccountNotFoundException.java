@@ -1,4 +1,4 @@
-package de.ait.javalessons.errors;
+package de.ait.javalessons.exceptions;
 
 public class BankAccountNotFoundException extends RuntimeException {
 

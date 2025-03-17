@@ -1,7 +1,6 @@
 package de.ait.javalessons.controller;
 
 import de.ait.javalessons.model.Car;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,10 +21,6 @@ public class RestApiCarControllerIT {
 
     private static final String BASE_URL = "/cars";
 
-    @BeforeEach
-    public void setUp() {
-
-    }
 
     @Test
     void testGetCarsReturnDefaultCars() {
@@ -38,7 +33,7 @@ public class RestApiCarControllerIT {
 
     @Test
     void testGetCarByIdWasFound(){
-        ResponseEntity<Car> response = testRestTemplate.getForEntity(BASE_URL + "/1", Car.class);
+        ResponseEntity<Car> response = testRestTemplate.getForEntity(BASE_URL+ "/1", Car.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("BMW M1", response.getBody().getName());
         assertEquals("1", response.getBody().getId());

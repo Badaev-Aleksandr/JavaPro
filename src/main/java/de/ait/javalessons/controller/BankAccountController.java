@@ -1,7 +1,7 @@
 package de.ait.javalessons.controller;
 
-import de.ait.javalessons.errors.BankAccountBalancePositiveException;
-import de.ait.javalessons.errors.BankAccountNotFoundException;
+import de.ait.javalessons.exceptions.BankAccountBalancePositiveException;
+import de.ait.javalessons.exceptions.BankAccountNotFoundException;
 import de.ait.javalessons.model.BankAccount;
 import de.ait.javalessons.service.BankAccountService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,12 +32,20 @@ public class BankAccountController {
     @GetMapping
     ResponseEntity<List<BankAccount>> getAllBankAccounts() {
         List<BankAccount> bankAccounts = bankAccountService.getAllBankAccounts();
+        if (bankAccounts.isEmpty()) {
+            log.info("No accounts found");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
         return ResponseEntity.ok(bankAccounts);
     }
 
     @PostMapping
     ResponseEntity<BankAccount> createBankAccount(@RequestParam String accountNumber,
                                                   @RequestParam String ownerName) {
+        if (accountNumber == null || accountNumber.isEmpty() || ownerName == null || ownerName.isEmpty()) {
+            log.error("Bad request: accountNumber or ownerName is empty");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
         BankAccount bankAccount = new BankAccount(accountNumber, ownerName, 0.0);
         BankAccount saveBankAccount = bankAccountService.saveNewBankAccount(bankAccount);
         if (saveBankAccount == null) {
@@ -91,6 +99,22 @@ public class BankAccountController {
 
     }
 
+    @PostMapping("/{fromId}/{toId}/transfer-money")
+    ResponseEntity<Double> transferMoney(@PathVariable Long fromId,
+                                         @PathVariable Long toId,
+                                         @RequestParam Double amount) {
+        try {
+            double remainingBalance = bankAccountService.transferMoney(fromId, toId, amount);
+            return ResponseEntity.status(HttpStatus.OK).body(remainingBalance);
+        } catch (BankAccountNotFoundException exception) {
+            log.error(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (IllegalArgumentException exception) {
+            log.error(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
     @PutMapping("/{id}/update-owner-name")
     ResponseEntity<BankAccount> updateOwnerName(@PathVariable Long id, @RequestParam String ownerName) {
         log.info("Updating owner name for bank account with id: {}", id);
@@ -103,18 +127,18 @@ public class BankAccountController {
         }
     }
 
-    @DeleteMapping("/{id}/delete")
-    ResponseEntity<BankAccount> deleteBankAccountById(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> deleteBankAccountById(@PathVariable Long id) {
         log.info("Deleting bank account with id: {}", id);
         try {
-            BankAccount bankAccount = bankAccountService.deleteBankAccountById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(bankAccount);
+            bankAccountService.deleteBankAccountById(id);
+            return ResponseEntity.noContent().build();
         } catch (BankAccountNotFoundException exception) {
             log.error(exception.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }catch (BankAccountBalancePositiveException exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (BankAccountBalancePositiveException exception) {
             log.error(exception.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 }

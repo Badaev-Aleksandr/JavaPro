@@ -1,4 +1,4 @@
-package de.ait.javalessons.errors;
+package de.ait.javalessons.exceptions;
 
 public class BankAccountBalancePositiveException extends RuntimeException {
     public BankAccountBalancePositiveException(Long bankAccountId) {
