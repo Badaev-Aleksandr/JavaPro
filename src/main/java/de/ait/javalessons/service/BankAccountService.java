@@ -107,11 +107,13 @@ public class BankAccountService {
             log.error("{} failed: Amount must be greater than zero", operation);
             throw new IllegalArgumentException(operation + " failed: Amount must be greater than zero");
         }
-        if (amount > bankAccount.getBalance()) {
+        if (("withdraw".equals(operation) && amount > bankAccount.getBalance()) ||
+                ("transferMoney".equals(operation) && amount > bankAccount.getBalance())) {
             log.error("{} failed: The amount exceeds the available balance", operation);
             throw new IllegalArgumentException(operation + " failed: The amount exceeds the available balance");
         }
-        if (bankAccount.getBalance() - amount < minBalance) {
+        if (("withdraw".equals(operation) && bankAccount.getBalance() - amount < minBalance)
+                || ("transferMoney".equals(operation) && bankAccount.getBalance() - amount < minBalance)) {
             log.error("{} failed: The transaction would reduce balance below the allowed minimum of {}",
                     operation, minBalance);
             throw new IllegalArgumentException(operation + " failed: The transaction would reduce balance below " + minBalance);
