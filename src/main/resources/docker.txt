@@ -1,0 +1,16 @@
+docker ps выводит список запущенных контейнеров
+
+docker ps -a выводит список всех контейнеров
+
+docker build собирает образ из Dockerfile
+(docker build -t development42:1.0.1 . )
+
+docker images выводит все images
+
+docker stop останавливает работу контейнера
+
+docker rm удаляет  остановленный контейнер
+
+docker rmi удаляет image
+
+docker run -d -p 8080:8080 -t development42:1.0.1
