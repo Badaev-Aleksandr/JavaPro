@@ -34,8 +34,20 @@ public class SecurityConfig {
                 .roles("ADMIN")
                 .build();
 
+        // Создает пользователя с именем "customer ", паролем "customerpass" и ролью CUSTOMER.
+        UserDetails customer = User.withUsername("customer")
+                .password(passwordEncoder.encode("customerpass"))
+                .roles("CUSTOMER")
+                .build();
+
+        // Создает пользователя с именем "manager ", паролем "managerpass" и ролью MANAGER.
+        UserDetails manager = User.withUsername("manager")
+                .password(passwordEncoder.encode("managerpass"))
+                .roles("MANAGER")
+                .build();
+
         // Возвращает менеджер пользователей, который хранит пользователей в памяти.
-        return new InMemoryUserDetailsManager(user, admin);
+        return new InMemoryUserDetailsManager(user, admin, customer, manager);
     }
 
     @Bean
@@ -46,6 +58,9 @@ public class SecurityConfig {
                         .requestMatchers(("/employees/public/**")).permitAll() // Разрешает доступ к /employees/public/** всем пользователям.
                         .requestMatchers(("/employees/user/**")).hasRole("USER") // Разрешает доступ к /employees/user/** только пользователям с ролью USER.
                         .requestMatchers(("/employees/admin/**")).hasRole("ADMIN") // Разрешает доступ к /employees/admin/** только пользователям с ролью ADMIN.
+                        .requestMatchers(("/products/public/list**")).permitAll() // Разрешает доступ к /products/public/list** всем пользователям.
+                        .requestMatchers(("/products/customer/cart**")).hasRole("CUSTOMER") // Разрешает доступ к /products/customer/cart** только пользователям с ролью CUSTOMER.
+                        .requestMatchers(("/products/manager/add**")).hasRole("MANAGER")  // Разрешает доступ к /products/manager/add** только пользователям с ролью MANAGER.
                         .anyRequest().authenticated() // Все остальные запросы требуют аутентификации.
                 )
                 .formLogin(withDefaults()); // Включает форму входа по умолчанию.
