@@ -1,7 +1,7 @@
 package de.ait.javalessons.controller;
 
 import de.ait.javalessons.model.Car;
-import de.ait.repositories.CarRepository;
+import de.ait.javalessons.repositories.CarRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

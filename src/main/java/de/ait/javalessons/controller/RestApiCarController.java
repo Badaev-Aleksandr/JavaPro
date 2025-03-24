@@ -1,7 +1,7 @@
 package de.ait.javalessons.controller;
 
 import de.ait.javalessons.model.Car;
-import de.ait.repositories.CarRepository;
+import de.ait.javalessons.repositories.CarRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

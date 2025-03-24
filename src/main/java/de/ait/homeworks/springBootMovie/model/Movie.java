@@ -1,4 +1,4 @@
-package de.ait.homeworks.controllerSpringBootMovie.model;
+package de.ait.homeworks.springBootMovie.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

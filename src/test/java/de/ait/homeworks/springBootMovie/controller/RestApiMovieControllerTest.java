@@ -1,6 +1,6 @@
-package de.ait.homeworks.controllerSpringBootMovie.controller;
+package de.ait.homeworks.springBootMovie.controller;
 
-import de.ait.homeworks.controllerSpringBootMovie.model.Movie;
+import de.ait.homeworks.springBootMovie.model.Movie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;

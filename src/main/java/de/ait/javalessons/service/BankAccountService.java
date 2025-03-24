@@ -3,7 +3,7 @@ package de.ait.javalessons.service;
 import de.ait.javalessons.exceptions.BankAccountBalancePositiveException;
 import de.ait.javalessons.exceptions.BankAccountNotFoundException;
 import de.ait.javalessons.model.BankAccount;
-import de.ait.repositories.BankAccountRepository;
+import de.ait.javalessons.repositories.BankAccountRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,7 +1,7 @@
 package de.ait.javalessons.controller;
 
 import de.ait.javalessons.model.BankAccount;
-import de.ait.repositories.BankAccountRepository;
+import de.ait.javalessons.repositories.BankAccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;

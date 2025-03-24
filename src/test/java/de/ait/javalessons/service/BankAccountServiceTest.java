@@ -3,7 +3,7 @@ package de.ait.javalessons.service;
 import de.ait.javalessons.exceptions.BankAccountBalancePositiveException;
 import de.ait.javalessons.exceptions.BankAccountNotFoundException;
 import de.ait.javalessons.model.BankAccount;
-import de.ait.repositories.BankAccountRepository;
+import de.ait.javalessons.repositories.BankAccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

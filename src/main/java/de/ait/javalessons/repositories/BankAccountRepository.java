@@ -1,4 +1,4 @@
-package de.ait.repositories;
+package de.ait.javalessons.repositories;
 
 import de.ait.javalessons.model.BankAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
