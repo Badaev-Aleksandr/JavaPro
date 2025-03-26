@@ -12,7 +12,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+/**
+ * Интеграционные тесты для класса DemoController.
+ * Этот тестовый класс проверяет корректность и работоспособность различных эндпоинтов DemoController,
+ * используя TestRestTemplate для выполнения HTTP-запросов к приложению, работающему в тестовой среде.
+ * Тесты гарантируют, что эндпоинты возвращают правильные HTTP-ответы и содержимое
+ * в различных сценариях — как при авторизованном, так и при неавторизованном доступе.
+ *
+ * Аннотации и конфигурация тестов:
+ * - @SpringBootTest: Поднимает весь контекст Spring-приложения для интеграционного тестирования.
+ * - @ActiveProfiles: Указывает использовать профиль "test" при выполнении этого класса.
+ * - @LocalServerPort: Вставляет случайный порт, используемый тестовым сервером.
+ *
+ * Этот класс также использует следующие пользовательские конфигурации:
+ * - DevelopmentGr42Application: Основной класс Spring Boot приложения.
+ * - SecurityConfigJDBC: Класс конфигурации, настраивающий правила безопасности и аутентификацию в приложении.
+ *
+ * Тестовые случаи:
+ * - testHomeAPI: Проверяет домашний эндпоинт API на успешный ответ и ожидаемое содержимое.
+ * - testPublicInfoAPI: Проверяет публичный API-эндпоинт, доступный без авторизации.
+ * - testDashboardPageAPIUnauthorized: Проверяет недопустимость доступа к пользовательской панели без авторизации.
+ * - testDashboardPageAPIAuthorized: Проверяет доступ администратора к панели и корректность ответа и содержимого.
+ */
 @SpringBootTest(classes = {DevelopmentGr42Application.class, SecurityConfig.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class DemoControllerIT {

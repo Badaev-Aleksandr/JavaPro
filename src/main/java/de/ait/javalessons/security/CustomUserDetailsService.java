@@ -2,7 +2,6 @@ package de.ait.javalessons.security;
 
 import de.ait.javalessons.model.User;
 import de.ait.javalessons.repositories.UserRepository;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
