@@ -47,6 +47,9 @@ public class RegistrationService {
     }
 
     public void registerUser(String username, String password) {
+        if (userRepository.findByUsername(username) != null) {
+            throw new IllegalArgumentException("User with username " + username + " already exists");
+        }
         User user = new User();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));

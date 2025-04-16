@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
 
-    @GetMapping("/public/list")
-    ResponseEntity<String> getProducts() {
-        return ResponseEntity.ok("Products: Radio, Handy, Computer, Alexa");
-    }
+//    @GetMapping("/public/list")
+//    ResponseEntity<String> getProducts() {
+//        return ResponseEntity.ok("Products: Radio, Handy, Computer, Alexa");
+//    }
 
     @GetMapping("/customer/cart")
     ResponseEntity<String> getCart() {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Главная страница</h1>
+<ul>
+    <!--  Ссылка на публичную страницу info -->
+    <li>
+        <a th:href="@{/public/info}">Public info</a>
+    </li>
+
+    <!--  Ссылка на страницу /user/profile -->
+    <li>
+        <a th:href="@{/user/profile}">User profile</a>
+    </li>
+
+    <!--  Ссылка на страницу /admin/dashboard -->
+    <li>
+        <a th:href="@{/admin/dashboard}">Admin Dashboard</a>
+    </li>
+
+    <!--  Ссылка на страницу регистрацию -->
+    <li>
+        <a th:href="@{/register}">Регистрация</a>
+    </li>
+
+    <!--  Ссылка на страницу логина -->
+    <li>
+        <a th:href="@{/login}">Вход</a>
+    </li>
+
+    <!--  Ссылка на страницу выхода -->
+    <li>
+        <a th:href="@{/logout}">Выход</a>
+    </li>
+</ul>
+
+</body>
+</html>
